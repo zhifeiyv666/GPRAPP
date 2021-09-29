@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.flyfish.ui.home.HomeFragment"
+        android:label="@string/welcome"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.flyfish.ui.view.ViewFragment"
+        android:label="@string/do_not_forget_next_time"
+        tools:layout="@layout/fragment_view" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.flyfish.ui.setting.SettingFragment"
+        android:label="@string/do_not_watch_this_page"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
