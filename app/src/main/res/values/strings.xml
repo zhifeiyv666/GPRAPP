@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">key</string>
+    <string name="app_name">GPR</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">View</string>
     <string name="title_notifications">Setting</string>
