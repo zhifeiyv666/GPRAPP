@@ -45,28 +45,15 @@
         app:layout_constraintTop_toBottomOf="@id/appSearchNameView"
         />
 
-    <ScrollView
-        android:layout_width="0dp"
+    <ListView
+        android:id="@+id/passwordSearchResultView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
         android:fadeScrollbars="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchPassword">
-
-        <ListView
-            android:id="@+id/passwordSearchResultView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            />
-    </ScrollView>
-
-
+        app:layout_constraintTop_toBottomOf="@id/searchPassword"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
