@@ -6,6 +6,7 @@ import com.flyfish.common.utils.FileUtil;
 import com.flyfish.common.utils.JsonUtil;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +63,9 @@ public class GlobalApp {
             if (passwords.containsKey(appName)) {
                 passwords.get(appName).add(password);
             } else {
-                passwords.put(appName, Arrays.asList(password));
+                List<Password> appPasswords = new ArrayList<>();
+                appPasswords.add(password);
+                passwords.put(appName, appPasswords);
             }
             return writePasswords();
         }
