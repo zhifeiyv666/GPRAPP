@@ -6,9 +6,10 @@ import com.flyfish.common.utils.FileUtil;
 import com.flyfish.common.utils.JsonUtil;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,7 +21,7 @@ public class GlobalApp {
     private static GlobalApp instance = new GlobalApp();
     private boolean hasPermission = false;
 
-    private Map<String, List<Password>> passwords = null;
+    private Map<String, LinkedList<Password>> passwords = null;
 
     public static GlobalApp getInstance() {
         return instance;
@@ -61,10 +62,10 @@ public class GlobalApp {
                 passwords = new HashMap<>();
             }
             if (passwords.containsKey(appName)) {
-                passwords.get(appName).add(password);
+                passwords.get(appName).addFirst(password);
             } else {
-                List<Password> appPasswords = new ArrayList<>();
-                appPasswords.add(password);
+                LinkedList<Password> appPasswords = new LinkedList<>();
+                appPasswords.addFirst(password);
                 passwords.put(appName, appPasswords);
             }
             return writePasswords();
@@ -154,8 +155,9 @@ public class GlobalApp {
         if (hasPermission) {
             try {
                 String json = FileUtil.readFromFile(DATA_FILE);
-                TypeReference<Map<String, List<Password>>> typeReference = new TypeReference<Map<String, List<Password>>>() {};
-                passwords = (Map<String, List<Password>>) JsonUtil.getInstance().deserialize(typeReference, json);
+                TypeReference<Map<String, LinkedList<Password>>> typeReference = new TypeReference<Map<String, LinkedList<Password>>>() {};
+                passwords = (Map<String, LinkedList<Password>>) JsonUtil.getInstance().deserialize(typeReference, json);
+                sort(passwords);
                 return true;
             } catch (FileNotFoundException e) {
                 boolean r = FileUtil.createDir(null);
@@ -167,5 +169,22 @@ public class GlobalApp {
             }
         }
         return false;
+    }
+
+    private void sort(Map<String, LinkedList<Password>> passwords) {
+        if (passwords == null || passwords.isEmpty()) {
+            return;
+        }
+        for (List<Password> passwordList : passwords.values()) {
+            if (passwordList == null)  {
+                continue;
+            }
+            Collections.sort(passwordList, new Comparator<Password>() {
+                @Override
+                public int compare(Password o1, Password o2) {
+                    return (int) (o2.getCreateTimeStamp() - o1.getCreateTimeStamp());
+                }
+            });
+        }
     }
 }
